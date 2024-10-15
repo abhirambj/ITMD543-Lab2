@@ -1,70 +1,65 @@
+// Sample product data
 const products = [
-    { id: 1, name: 'Laptop', category: 'electronics', price: 500, description: 'A high-performance laptop' },
-    { id: 2, name: 'Book', category: 'books', price: 20, description: 'A must-read book' },
-    { id: 3, name: 'T-shirt', category: 'clothing', price: 25, description: 'A comfortable t-shirt' },
+    { name: "T-shirt", category: "clothing", price: 25 },
+    { name: "Smartphone", category: "electronics", price: 299 },
+    { name: "Laptop", category: "electronics", price: 899 },
+    { name: "Book", category: "books", price: 15 },
+    { name: "Headphones", category: "electronics", price: 150 },
 ];
 
-const productGrid = document.getElementById('product-grid');
-const searchBar = document.getElementById('search-bar');
-const categoryFilter = document.getElementById('category-filter');
-const priceFilter = document.getElementById('price-filter');
-const priceValue = document.getElementById('price-value');
-const modal = document.getElementById('modal');
-const modalTitle = document.getElementById('modal-title');
-const modalDescription = document.getElementById('modal-description');
-const closeModal = document.getElementById('close-modal');
-const toggleThemeButton = document.getElementById('toggle-theme');
+const productList = document.getElementById("productList");
+const categoryFilter = document.getElementById("categoryFilter");
+const priceFilter = document.getElementById("priceFilter");
+const priceValue = document.getElementById("priceValue");
+const searchInput = document.getElementById("searchInput");
+const toggleDarkMode = document.getElementById("toggleDarkMode");
+let isDarkMode = false;
 
+// Function to display products
 function displayProducts(products) {
-    productGrid.innerHTML = '';
+    productList.innerHTML = "";
     products.forEach(product => {
-        const productCard = document.createElement('div');
-        productCard.classList.add('product-card');
-        productCard.innerHTML = `
+        const productElement = document.createElement("div");
+        productElement.classList.add("product");
+        productElement.innerHTML = `
             <h3>${product.name}</h3>
             <p>Category: ${product.category}</p>
             <p>Price: $${product.price}</p>
         `;
-        productCard.addEventListener('click', () => openModal(product));
-        productGrid.appendChild(productCard);
+        productList.appendChild(productElement);
     });
 }
 
+// Filter products
 function filterProducts() {
-    const searchQuery = searchBar.value.toLowerCase();
     const category = categoryFilter.value;
-    const maxPrice = parseInt(priceFilter.value, 10);
+    const maxPrice = parseInt(priceFilter.value);
+    const searchQuery = searchInput.value.toLowerCase();
 
     const filteredProducts = products.filter(product => {
         return (
-            (category === 'all' || product.category === category) &&
-            product.name.toLowerCase().includes(searchQuery) &&
-            product.price <= maxPrice
+            (category === "all" || product.category === category) &&
+            product.price <= maxPrice &&
+            product.name.toLowerCase().includes(searchQuery)
         );
     });
+
     displayProducts(filteredProducts);
 }
 
-function openModal(product) {
-    modalTitle.textContent = product.name;
-    modalDescription.textContent = product.description;
-    modal.classList.remove('hidden');
-}
-
-closeModal.addEventListener('click', () => {
-    modal.classList.add('hidden');
-});
-
-toggleThemeButton.addEventListener('click', () => {
-    document.body.toggleAttribute('data-theme', 'dark');
-});
-
-searchBar.addEventListener('input', filterProducts);
-categoryFilter.addEventListener('change', filterProducts);
-priceFilter.addEventListener('input', (event) => {
-    priceValue.textContent = event.target.value;
+// Event listeners for filters
+categoryFilter.addEventListener("change", filterProducts);
+priceFilter.addEventListener("input", () => {
+    priceValue.textContent = priceFilter.value;
     filterProducts();
 });
+searchInput.addEventListener("input", filterProducts);
 
-// Initial display
+// Toggle dark mode
+toggleDarkMode.addEventListener("click", () => {
+    isDarkMode = !isDarkMode;
+    document.body.classList.toggle("dark-mode", isDarkMode);
+});
+
+// Initialize page with all products
 displayProducts(products);
