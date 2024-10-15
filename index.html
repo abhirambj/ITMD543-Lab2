@@ -3,43 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Product Selection</title>
     <link rel="stylesheet" href="style.css">
+    <title>Interactive Product Catalog</title>
 </head>
 <body>
 <header>
-    <h1>Product Selection App</h1>
-    <nav>
-        <ul>
-            <li><a href="#home">Home</a></li>
-            <li><a href="#products">Products</a></li>
-            <li><a href="#contact">Contact Us</a></li>
-        </ul>
-    </nav>
+    <h1>Product Catalog</h1>
+    <label for="search-bar"></label><input type="text" id="search-bar" placeholder="Search products...">
+    <button id="toggle-theme">Dark Mode</button>
 </header>
 
-<main>
-    <section id="product-selection">
-        <h2>Select Categories</h2>
-        <form id="category-form">
-            <label><input type="checkbox" value="electronics"> Electronics</label>
-            <label><input type="checkbox" value="clothing"> Clothing</label>
-            <label><input type="checkbox" value="accessories"> Accessories</label>
-        </form>
-    </section>
+<aside id="filters">
+    <h2>Filters</h2>
+    <div>
+        <label>Category:</label>
+        <label for="category-filter"></label><select id="category-filter">
+            <option value="all">All</option>
+            <option value="electronics">Electronics</option>
+            <option value="books">Books</option>
+            <option value="clothing">Clothing</option>
+        </select>
+    </div>
+    <div>
+        <label>Price Range:</label>
+        <label for="price-filter"></label><input type="range" id="price-filter" min="0" max="500" step="50">
+    </div>
+</aside>
 
-    <section id="product-display">
-        <h2>Filtered Products</h2>
-        <ul id="product-list">
-            <!-- Filtered products will be displayed here -->
-        </ul>
-    </section>
-</main>
+<section id="product-grid">
+    <!-- Dynamic product cards will go here -->
+</section>
 
 <footer>
-    <p>&copy; 2024 Product Selection App. All Rights Reserved.</p>
+    <p>© 2024 Abhiram Bylahalli Jagadish</p>
 </footer>
+
+<div id="modal" class="hidden">
+    <div id="modal-content">
+        <span id="close-modal">&times;</span>
+        <h2 id="modal-title">Product Details</h2>
+        <p id="modal-description"></p>
+    </div>
+</div>
 
 <script src="script.js"></script>
 </body>
