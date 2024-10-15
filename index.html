@@ -3,37 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Interactive Product Catalog</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div class="container">
-    <h1 class="title">Interactive Product Catalog</h1>
-
+<header>
+    <h1>Interactive Product Catalog</h1>
     <div class="controls">
-        <input type="text" id="searchInput" placeholder="Search products...">
-        <button id="toggleDarkMode">Toggle Dark Mode</button>
+        <input type="text" id="search" placeholder="Search products...">
+        <button id="darkModeToggle">Toggle Dark Mode</button>
     </div>
+</header>
 
-    <div class="filters">
+<main>
+    <section class="filters">
         <h2>Filters</h2>
-        <label for="categoryFilter">Category:</label>
-        <select id="categoryFilter">
+        <label for="category">Category:</label>
+        <select id="category">
             <option value="all">All</option>
             <option value="clothing">Clothing</option>
             <option value="electronics">Electronics</option>
-            <option value="books">Books</option>
+            <option value="appliances">Appliances</option>
         </select>
 
-        <label for="priceFilter">Max Price:</label>
-        <input type="range" id="priceFilter" min="0" max="500" value="500">
+        <label for="maxPrice">Max Price:</label>
+        <input type="range" id="maxPrice" min="0" max="1000" value="500" step="10">
         <span id="priceValue">500</span>
-    </div>
+    </section>
 
-    <div id="productList" class="product-list">
-        <!-- Products will be dynamically inserted here -->
-    </div>
-</div>
+    <section class="product-list-container">
+        <div id="product-list" class="product-list"></div>
+    </section>
+</main>
 
 <footer>
     <p>&copy; 2024 Product Catalog</p>

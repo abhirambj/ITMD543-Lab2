@@ -1,8 +1,10 @@
 /* General styling */
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Arial', sans-serif;
     background-color: white;
     color: black;
+    margin: 0;
+    padding: 0;
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
@@ -10,73 +12,181 @@ body {
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
-    text-align: center;
 }
 
 .title {
-    font-size: 2.5rem;
+    font-size: 3rem;
     margin-bottom: 20px;
+    color: #333;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-weight: bold;
+    animation: fadeIn 1s ease-in-out;
 }
 
+/* Control section */
 .controls {
     display: flex;
-    justify-content: center;
-    gap: 10px;
+    justify-content: space-between;
+    align-items: center;
     margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+input[type="text"] {
+    padding: 10px;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: 2px solid #ccc;
+    width: 300px;
+    animation: slideIn 1s ease-in-out;
 }
 
 button {
-    padding: 10px 15px;
+    padding: 10px 20px;
     background-color: #007bff;
     color: white;
     border: none;
+    border-radius: 5px;
+    font-size: 1rem;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 button:hover {
     background-color: #0056b3;
+    transform: translateY(-3px);
 }
 
-/* Filter Section */
+/* Filters section */
 .filters {
-    margin: 20px 0;
-    text-align: left;
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    animation: fadeInUp 0.8s ease;
+    flex: 1;
+}
+
+.filters h2 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
 }
 
 .filters label {
-    display: block;
     font-weight: bold;
-    margin: 10px 0 5px;
+    display: block;
+    margin-top: 15px;
 }
 
-/* Styling for product list */
+input[type="range"] {
+    width: 100%;
+    margin-top: 10px;
+}
+
+#priceValue {
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+/* Product list using Flexbox */
 .product-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    display: flex;
+    flex-wrap: wrap;
     gap: 20px;
+    justify-content: center;
 }
 
 .product {
-    border: 1px solid #ccc;
-    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
     border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    transition: transform 0.3s ease;
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    animation: fadeInUp 0.5s ease-in-out;
+    flex: 1 1 250px;
+    max-width: 300px;
 }
 
 .product:hover {
-    transform: scale(1.05);
+    transform: translateY(-10px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
+.product h3 {
+    font-size: 1.4rem;
+    color: #007bff;
+    margin-bottom: 10px;
+}
+
+.product p {
+    font-size: 1rem;
+    color: #666;
+}
+
+/* Dark mode styles */
 .dark-mode {
     background-color: #121212;
     color: #f1f1f1;
 }
 
+.dark-mode .product {
+    background-color: #2c2c2c;
+    border-color: #444;
+}
+
+.dark-mode input[type="text"],
+.dark-mode input[type="range"],
+.dark-mode button {
+    background-color: #444;
+    color: white;
+    border-color: #666;
+}
+
+.dark-mode button:hover {
+    background-color: #555;
+}
+
+/* Footer */
 footer {
     margin-top: 40px;
     text-align: center;
     font-size: 0.9rem;
     color: #666;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideIn {
+    0% {
+        opacity: 0;
+        transform: translateX(-100px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
 }
