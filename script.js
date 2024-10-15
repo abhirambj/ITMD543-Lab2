@@ -1,67 +1,82 @@
-// Sample data for products
 const products = [
     { name: "T-shirt", category: "clothing", price: 25 },
     { name: "Jeans", category: "clothing", price: 50 },
-    { name: "Laptop", category: "electronics", price: 999 },
-    { name: "Phone", category: "electronics", price: 799 },
-    { name: "Blender", category: "appliances", price: 120 },
-    { name: "Headphones", category: "electronics", price: 150 },
-    { name: "Shoes", category: "clothing", price: 75 },
+    { name: "Toaster", category: "appliances", price: 60 },
+    { name: "Lipstick", category: "beauty", price: 25 },
+    { name: "Foundation", category: "beauty", price: 40 },
+    { name: "Football", category: "sports", price: 50 },
+    { name: "Sneakers", category: "footwear", price: 80 },
+    { name: "Blender", category: "appliances", price: 100 },
+    { name: "Mascara", category: "beauty", price: 30 },
+    { name: "Basketball", category: "sports", price: 30 },
+    { name: "Dress Shirt", category: "clothing", price: 60 },
+    { name: "Coffee Maker", category: "appliances", price: 120 },
+    { name: "Eyeshadow Palette", category: "beauty", price: 50 },
+    { name: "Soccer Ball", category: "sports", price: 20 },
+    { name: "Hoodie", category: "clothing", price: 40 },
+    { name: "Microwave", category: "appliances", price: 150 },
+    { name: "Lip Gloss", category: "beauty", price: 15 },
+    { name: "Tennis Racket", category: "sports", price: 80 },
+    { name: "Sweater", category: "clothing", price: 70 },
+    { name: "Vacuum Cleaner", category: "appliances", price: 200 },
 ];
 
-// Function to display the products based on filters
-function displayProducts(filteredProducts) {
-    const productList = document.getElementById("product-list");
-    productList.innerHTML = ""; // Clear previous products
+const productContainer = document.getElementById("products");
+const categoryFilter = document.getElementById("category");
+const priceFilter = document.getElementById("price-range");
+const priceValue = document.getElementById("price-value");
+const searchInput = document.getElementById("search");
+const darkModeButton = document.getElementById("toggle-dark-mode");
+const noProductsSection = document.getElementById("no-products");
 
-    filteredProducts.forEach(product => {
-        const productCard = document.createElement("div");
-        productCard.className = "product";
-        productCard.innerHTML = `
-            <h3>${product.name}</h3>
-            <p>Category: ${product.category}</p>
-            <p>Price: $${product.price}</p>
-        `;
-        productList.appendChild(productCard);
-    });
+function displayProducts(filteredProducts) {
+    productContainer.innerHTML = "";
+    noProductsSection.style.display = "none";
+
+    if (filteredProducts.length === 0) {
+        noProductsSection.style.display = "block";
+    } else {
+        filteredProducts.forEach(product => {
+            const productCard = document.createElement("div");
+            productCard.classList.add("product-card");
+            productCard.innerHTML = `
+                <h3>${product.name}</h3>
+                <p>Category: ${product.category}</p>
+                <p>Price: $${product.price}</p>
+            `;
+            productContainer.appendChild(productCard);
+        });
+    }
 }
 
-// Filter products based on category and price
 function filterProducts() {
-    const categorySelect = document.getElementById("category");
-    const maxPriceInput = document.getElementById("maxPrice");
-
-    const selectedCategory = categorySelect.value;
-    const maxPrice = parseInt(maxPriceInput.value);
+    const selectedCategory = categoryFilter.value;
+    const maxPrice = priceFilter.value;
+    const searchText = searchInput.value.toLowerCase();
 
     const filteredProducts = products.filter(product => {
         return (selectedCategory === "all" || product.category === selectedCategory) &&
-            product.price <= maxPrice;
+            product.price <= maxPrice &&
+            product.name.toLowerCase().includes(searchText);
     });
 
     displayProducts(filteredProducts);
 }
 
-// Update displayed max price value
-function updatePriceValue() {
-    const maxPriceInput = document.getElementById("maxPrice");
-    const priceValue = document.getElementById("priceValue");
-    priceValue.textContent = maxPriceInput.value;
-}
+// Initial Display
+filterProducts();
 
-// Dark mode toggle functionality
-function toggleDarkMode() {
-    const body = document.body;
-    body.classList.toggle("dark-mode");
-}
-
-// Event listeners for filtering and dark mode toggle
-document.getElementById("category").addEventListener("change", filterProducts);
-document.getElementById("maxPrice").addEventListener("input", () => {
-    updatePriceValue();
+categoryFilter.addEventListener("change", filterProducts);
+priceFilter.addEventListener("input", () => {
+    priceValue.textContent = priceFilter.value;
     filterProducts();
 });
-document.getElementById("darkModeToggle").addEventListener("click", toggleDarkMode);
+searchInput.addEventListener("input", filterProducts);
 
-// Initial display of all products
-displayProducts(products);
+// Toggle dark mode
+darkModeButton.addEventListener("click", function () {
+    document.body.classList.toggle("dark-mode");
+    document.querySelectorAll(".product-card").forEach((card) => card.classList.toggle("dark-card"));
+    document.querySelector("footer").classList.toggle("dark-mode");
+    noProductsSection.classList.toggle("dark-mode");
+});

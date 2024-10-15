@@ -3,39 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Interactive Product Catalog</title>
+    <title>Product Catalog</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <header>
-    <h1>Interactive Product Catalog</h1>
-    <div class="controls">
-        <label for="search"></label><input type="text" id="search" placeholder="Search products...">
-        <button id="darkModeToggle">Toggle Dark Mode</button>
-    </div>
+    <h1>Product Catalog</h1>
 </header>
 
-<main>
-    <section class="filters">
-        <h2>Filters</h2>
+<section class="filters">
+    <div class="filter-category">
         <label for="category">Category:</label>
-        <select id="category">
-            <option value="all">All</option>
-            <option value="clothing">Clothing</option>
-            <option value="electronics">Electronics</option>
-            <option value="appliances">Appliances</option>
-        </select>
+        <div class="select-wrapper">
+            <select id="category">
+                <option value="all">All</option>
+                <option value="clothing">Clothing</option>
+                <option value="electronics">Electronics</option>
+                <option value="appliances">Appliances</option>
+                <option value="furniture">Furniture</option>
+                <option value="sports">Sports</option>
+                <option value="beauty">Beauty</option>
+            </select>
+        </div>
+    </div>
+    <div class="filter-price">
+        <label for="price-range">Max Price:</label>
+        <input type="range" id="price-range" min="0" max="2000" value="1000">
+        <span id="price-value">1000</span>
+    </div>
+    <div>
+        <label for="search"></label><input type="text" id="search" placeholder="Search products...">
+        <button id="toggle-dark-mode">Dark Mode</button>
+    </div>
+</section>
 
-        <label for="maxPrice">Max Price:</label>
-        <input type="range" id="maxPrice" min="0" max="1000" value="500" step="10">
-        <span id="priceValue">500</span>
-    </section>
-
-    <section class="product-list-container">
-        <div id="product-list" class="product-list"></div>
-    </section>
-</main>
+<section id="products" class="product-grid"></section>
+<section id="no-products" class="no-products">
+    <p>No products available.</p>
+</section>
 
 <footer>
     <p>&copy; 2024 Abhiram Bylahalli Jagadish</p>
